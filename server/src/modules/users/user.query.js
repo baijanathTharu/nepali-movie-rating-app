@@ -1,4 +1,4 @@
-const UserModel = require("./user.model");
+const UserModel = require('./user.model');
 
 function mapUserReqData(userDetails, user) {
   if (userDetails.username) user.username = userDetails.username;
@@ -10,7 +10,7 @@ function mapUserReqData(userDetails, user) {
   if (userDetails.permanent_address)
     user.address.permAddress = userDetails.permanent_address;
   if (userDetails.temp_address)
-    user.address.tempAddress = userDetails.temp_address.split(",");
+    user.address.tempAddress = userDetails.temp_address.split(',');
   if (userDetails.image) user.image = userDetails.image;
   if (userDetails.role) user.role = userDetails.role;
   // TODO:: status
@@ -21,7 +21,12 @@ function insert(data) {
 
   mapUserReqData(data, user);
 
-  return user.save();
+  return new Promise(function (resolve, reject) {
+    user.save(function (err, data) {
+      if (err) return reject(err);
+      resolve(data);
+    });
+  });
 }
 
 function fetch(condition) {
@@ -29,7 +34,7 @@ function fetch(condition) {
     UserModel.find(condition, function (e, user) {
       if (e) return reject(e);
       if (user.length === 0)
-        return reject({ message: "User not found", status: 404 });
+        return reject({ message: 'User not found', status: 404 });
       resolve(user);
     });
   });
@@ -39,10 +44,10 @@ function update(id, data) {
   return new Promise(function (resolve, reject) {
     UserModel.findById(id, function (e, user) {
       if (e) return reject(e);
-      if (!user) return resolve({ message: "User not found", status: 404 });
+      if (!user) return resolve({ message: 'User not found', status: 404 });
 
       // finding old image name
-      let oldImageName = "";
+      let oldImageName = '';
       if (user.image) {
         oldImageName = user.image;
       }
@@ -62,7 +67,7 @@ function remove(id) {
   return new Promise(function (resolve, reject) {
     UserModel.findById(id, function (e, user) {
       if (e) return reject(e);
-      if (!user) return reject({ message: "User not found", status: 404 });
+      if (!user) return reject({ message: 'User not found', status: 404 });
 
       // user found, delete it
       // TODO:: delete his images also

@@ -22,10 +22,12 @@
   },
   "scripts": {
     "start-client": "react-scripts start",
+    "build-client": "react-scripts build",
     "build": "react-scripts build && (cd server && npm install)",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start": "cd server && npm start"
+    "start": "cd server && npm start",
+    "dev-server": "cd server && npm run dev"
   },
   "eslintConfig": {
     "extends": [

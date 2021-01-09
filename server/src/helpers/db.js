@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 function connectDb() {
-  return mongoose.connect(`${process.env.DB_URL}/${process.env.DB_NAME}`, {
+  return mongoose.connect(`${process.env.DB_URL}`, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -10,8 +10,8 @@ function connectDb() {
 
 connectDb()
   .then(function (data) {
-    console.log("connected to database");
+    console.log('connected to database');
   })
   .catch(function (e) {
-    console.log("Error connecting to database: ", e);
+    console.log('Error connecting to database: ', e);
   });

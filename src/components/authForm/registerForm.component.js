@@ -46,16 +46,22 @@ export const RegisterForm = () => {
     const [regError, res] = await handleError(
       POST('/auth/register', formState.data)
     );
-    if (regError) {
-      setIsSubmitting(false);
-      return notifyError(JSON.stringify(regError.response.data.error.message));
-    }
     if (res) {
       sessionStorage.setItem('token', res.data.token);
       sessionStorage.setItem('role', res.data.role || '1');
       notifySuccess('registration success');
       userContext.setUserState(res.data);
       history.push('/');
+    }
+    if (regError) {
+      // console.log('reg error: ', { regError });
+      setIsSubmitting(false);
+      return notifyError(
+        JSON.stringify(
+          regError.response.data.error.message ||
+            regError.response.data.error.name
+        )
+      );
     }
   };
 

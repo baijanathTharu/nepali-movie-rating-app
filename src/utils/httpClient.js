@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const ENV = { type: 'dev' };
+
 const http = axios.create({
-  baseURL: '/api',
+  baseURL: ENV.type === 'dev' ? `${process.env.REACT_APP_BASE_URL}` : '',
   responseType: 'json',
 });
 
