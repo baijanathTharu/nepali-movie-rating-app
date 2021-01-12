@@ -41,7 +41,6 @@ function create(req, res, next) {
         const secretObj = {};
         secretObj.email = req.body.email_address;
         secretObj.code = generateCode(req.body.username);
-        console.log('secretCode: ', secretObj);
         insertSecret(secretObj).then(function (doc) {
           // TODO:: sanitize data before sending
           res.json(data);

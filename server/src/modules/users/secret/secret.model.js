@@ -10,10 +10,10 @@ const SecretModel = new mongoose.Schema({
     type: String,
     required: true,
   },
-  dateCreated: {
+  createdAt: {
     type: Date,
     default: Date.now(),
-    expires: 120,
+    expires: '120s',
   },
 });
 
