@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const UserModel = new mongoose.Schema(
   {
@@ -26,13 +26,13 @@ const UserModel = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["active", "inactive"],
-      default: "active",
+      enum: ['active', 'inactive'],
+      default: 'inactive',
     },
     dob: Date,
     gender: {
       type: String,
-      enum: ["male", "female", "others"],
+      enum: ['male', 'female', 'others'],
     },
     image: String,
     address: {
@@ -43,4 +43,4 @@ const UserModel = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("user", UserModel);
+module.exports = mongoose.model('user', UserModel);

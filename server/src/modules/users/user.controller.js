@@ -3,6 +3,8 @@ const fs = require('fs');
 
 const UserQuery = require('./user.query');
 const encryptPassword = require('../../helpers/securePassword').encryptPassword;
+const insertSecret = require('./secret/secret.query');
+const generateCode = require('../../helpers/generateCode');
 
 function get(req, res, next) {
   const condition = {};
@@ -36,7 +38,14 @@ function create(req, res, next) {
   function query() {
     UserQuery.insert(data)
       .then(function (data) {
-        res.json(data);
+        const secretObj = {};
+        secretObj.email = req.body.email_address;
+        secretObj.code = generateCode(req.body.username);
+        console.log('secretCode: ', secretObj);
+        insertSecret(secretObj).then(function (doc) {
+          // TODO:: sanitize data before sending
+          res.json(data);
+        });
       })
       .catch(function (e) {
         if (e.name === 'MongoError') {
