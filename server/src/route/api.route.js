@@ -7,9 +7,10 @@ const authenticate = require('../middlewares/authenticate');
 const authorize = require('../middlewares/authorize');
 const ratingRoute = require('../modules/movies/rating.route');
 const searchMovies = require('../modules/movies/movie.search');
+const checkActive = require('../middlewares/checkActive');
 
 router.use('/movies', authenticate, authorize, movieRoute);
-router.use('/rate', authenticate, ratingRoute);
+router.use('/rate', authenticate, checkActive, ratingRoute);
 router.use('/users', userRoute);
 router.use('/auth', authRoute);
 router.use('/search/movies', searchMovies);

@@ -13,7 +13,7 @@ const SecretModel = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now(),
-    expires: '120s',
+    expires: '600s',
   },
 });
 
