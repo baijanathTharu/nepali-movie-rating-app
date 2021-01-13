@@ -1,4 +1,7 @@
 const nodemailer = require('nodemailer');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const senderMailAddress = process.env.SENDER_MAIL_ADDRESS;
 const senderMailAddressPass = process.env.SENDER_MAIL_ADDRESS_PASS;

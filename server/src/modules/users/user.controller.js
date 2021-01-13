@@ -5,6 +5,7 @@ const UserQuery = require('./user.query');
 const encryptPassword = require('../../helpers/securePassword').encryptPassword;
 const insertSecret = require('./secret/secret.query');
 const generateCode = require('../../helpers/generateCode');
+const sendMail = require('../../helpers/sendMail');
 
 function get(req, res, next) {
   const condition = {};
@@ -43,8 +44,13 @@ function create(req, res, next) {
         secretObj.code = generateCode(req.body.username);
         insertSecret(secretObj).then(function (doc) {
           // TODO:: sanitize data before sending
-          // TODO:: send mail here
-          res.json(data);
+          sendMail(
+            doc.email,
+            `https://nepalimovierating.herokuapp.com/${req.body.username}/${doc.code}`
+          ).then(function (mailInfo) {
+            console.log('data: ', mailInfo);
+            res.json(data);
+          });
         });
       })
       .catch(function (e) {
