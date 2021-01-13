@@ -4,7 +4,7 @@ const SecretModel = new mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
+    // unique: true,
   },
   code: {
     type: String,
@@ -13,7 +13,7 @@ const SecretModel = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now(),
-    expires: '600s',
+    // expires: '600s',
   },
 });
 

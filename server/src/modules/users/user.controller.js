@@ -46,7 +46,7 @@ function create(req, res, next) {
           // TODO:: sanitize data before sending
           sendMail(
             doc.email,
-            `https://nepalimovierating.herokuapp.com/${req.body.username}/${doc.code}`
+            `http://localhost:8080/api/verify-email/${data._id}/${doc.code}`
           ).then(function (mailInfo) {
             console.log('data: ', mailInfo);
             res.json(data);
