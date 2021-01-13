@@ -43,6 +43,7 @@ function create(req, res, next) {
         secretObj.code = generateCode(req.body.username);
         insertSecret(secretObj).then(function (doc) {
           // TODO:: sanitize data before sending
+          // TODO:: send mail here
           res.json(data);
         });
       })
