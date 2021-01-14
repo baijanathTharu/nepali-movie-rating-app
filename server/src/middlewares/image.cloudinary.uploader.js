@@ -2,11 +2,12 @@ const cloudinary = require('cloudinary');
 const path = require('path');
 
 const ENV = process.env.ENVIRONMENT;
+const buildPath = path.join(__dirname, '..', '..', '..', 'build');
 
 module.exports = function (req, res, next) {
   if (ENV === 'production') {
     cloudinary.v2.uploader.upload(
-      path.join(path.resolve(__dirname, `build/${req.file.filename}`)),
+      path.join(buildPath, '/', req.file.filename),
       { folder: 'movie-rating-app-github/movie-images' },
       function (err, result) {
         if (err) {

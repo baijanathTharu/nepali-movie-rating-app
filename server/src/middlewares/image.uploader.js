@@ -3,6 +3,8 @@ const path = require('path');
 
 const ENV = process.env.ENVIRONMENT;
 
+const buildPath = path.join(__dirname, '..', '..', '..', 'build');
+
 const diskStorage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, Date.now() + '-' + file.originalname);
@@ -10,7 +12,7 @@ const diskStorage = multer.diskStorage({
   destination:
     ENV === 'production'
       ? function (req, file, cb) {
-          cb(null, path.resolve(__dirname, 'build'));
+          cb(null, buildPath);
         }
       : function (req, file, cb) {
           cb(null, path.join(process.cwd(), 'uploads/images'));
