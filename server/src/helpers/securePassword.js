@@ -1,8 +1,8 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
 
 function encryptPassword(data) {
   return new Promise(function (resolve, reject) {
-    bcrypt.genSalt((saltRounds = 5), function (e, salt) {
+    bcrypt.genSalt(5, function (e, salt) {
       if (e) return reject(e);
       bcrypt.hash(data, salt, function (e, hashed) {
         if (e) return reject(e);
