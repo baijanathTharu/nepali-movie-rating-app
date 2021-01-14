@@ -1,20 +1,27 @@
-const multer = require("multer");
-const path = require("path");
+const multer = require('multer');
+const path = require('path');
+
+const ENV = process.env.ENVIRONMENT;
 
 const diskStorage = multer.diskStorage({
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
+    cb(null, Date.now() + '-' + file.originalname);
   },
-  destination: function (req, file, cb) {
-    cb(null, path.join(process.cwd(), "uploads/images"));
-  },
+  destination:
+    ENV === 'production'
+      ? function (req, file, cb) {
+          cb(null, path.resolve(__dirname, 'build'));
+        }
+      : function (req, file, cb) {
+          cb(null, path.join(process.cwd(), 'uploads/images'));
+        },
 });
 
 // if file type is image then upload
 function imageFilter(req, file, cb) {
-  const mimeType = file.mimetype.split("/")[0];
+  const mimeType = file.mimetype.split('/')[0];
 
-  if (mimeType === "image") {
+  if (mimeType === 'image') {
     cb(null, true);
   } else {
     req.fileTypeError = true;
