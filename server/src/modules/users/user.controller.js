@@ -56,7 +56,7 @@ function create(req, res, next) {
             // send mail
             sendMail(
               doc.email,
-              `https://nepali-movie-rating/api/verify-email/${data._id}/${doc.code}`
+              `https://nepali-movie-rating.herokuapp.com/api/verify-email/${data._id}/${doc.code}`
             )
               .then(function (mailInfo) {
                 console.log('data: ', mailInfo);
