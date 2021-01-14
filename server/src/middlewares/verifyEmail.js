@@ -13,9 +13,7 @@ module.exports = function (req, res, next) {
 
         user.save(function (err, updatedUser) {
           if (err) return next({ msg: 'Something went wrong!', status: 400 });
-          res.json({
-            msg: 'Your email is verified! You can start rating movies now.',
-          });
+          res.redirect(`https://nepali-movie-rating.herokuapp.com`);
         });
       }
     });
