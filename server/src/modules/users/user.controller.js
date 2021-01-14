@@ -46,22 +46,39 @@ function create(req, res, next) {
   // console.log('data registering: ', data);
 
   function query() {
-    UserQuery.insert(data)
-      .then(function (data) {
-        const secretObj = {};
-        secretObj.email = req.body.email_address;
-        secretObj.code = generateCode(req.body.username);
-        insertSecret(secretObj).then(function (doc) {
-          const sanitizedData = sanitizeData(data, 'password');
-          sendMail(
-            doc.email,
-            `https://nepali-movie-rating/api/verify-email/${data._id}/${doc.code}`
-          ).then(function (mailInfo) {
-            console.log('data: ', mailInfo);
-            res.json(sanitizedData);
+    const secretObj = {};
+    secretObj.email = req.body.email_address;
+    secretObj.code = generateCode(req.body.username);
+    insertSecret(secretObj)
+      .then(function (doc) {
+        UserQuery.insert(data)
+          .then(function (data) {
+            // send mail
+            sendMail(
+              doc.email,
+              `https://nepali-movie-rating/api/verify-email/${data._id}/${doc.code}`
+            )
+              .then(function (mailInfo) {
+                console.log('data: ', mailInfo);
+
+                const sanitizedData = sanitizeData(data, 'password');
+                res.json(sanitizedData);
+              })
+              .catch(function (e) {
+                if (e.name === 'MongoError') {
+                  return next({ message: e.keyValue, status: 403 });
+                }
+                next(e);
+              });
+          })
+          .catch(function (e) {
+            if (e.name === 'MongoError') {
+              return next({ message: e.keyValue, status: 403 });
+            }
+            next(e);
           });
-        });
       })
+
       .catch(function (e) {
         if (e.name === 'MongoError') {
           return next({ message: e.keyValue, status: 403 });
