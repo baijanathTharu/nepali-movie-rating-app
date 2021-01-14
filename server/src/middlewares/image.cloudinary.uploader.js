@@ -1,5 +1,8 @@
 const cloudinary = require('cloudinary');
 const path = require('path');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const ENV = process.env.ENVIRONMENT;
 const buildPath = path.join(__dirname, '..', '..', '..', 'build');
