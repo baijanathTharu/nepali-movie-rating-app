@@ -10,6 +10,7 @@ const buildPath = path.join(__dirname, '..', '..', '..', 'build');
 
 const diskStorage = multer.diskStorage({
   filename: function (req, file, cb) {
+    // req.file.filename = file.originalname;
     cb(null, Date.now() + '-' + file.originalname);
   },
   destination:
@@ -25,7 +26,7 @@ const diskStorage = multer.diskStorage({
 // if file type is image then upload
 function imageFilter(req, file, cb) {
   const mimeType = file.mimetype.split('/')[0];
-
+  console.log('reqDisk: ', req);
   if (mimeType === 'image') {
     cb(null, true);
   } else {

@@ -71,6 +71,7 @@ export const MovieForm = ({ formTitle, movieId, closeForm }) => {
   const handleChange = (e) => {
     let { name, value, files } = e.target;
     if (name === 'image') {
+      console.log('image: ', files[0]);
       value = files[0];
     }
     if (!value) {
@@ -84,16 +85,21 @@ export const MovieForm = ({ formTitle, movieId, closeForm }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+
     const data = new FormData();
     FormItems.forEach((item) => {
       data.append(item.name, formState[item.name]);
     });
     data.append('description', formState.description);
+    data.append('image', formState.image);
+
     const [movieError, movieRes] = await handleError(
-      POST('/movies', data, {}, true)
+      POST('/movies', data, {}, true, true)
     );
+
     if (movieError) {
       setIsSubmitting(false);
+      console.log('movieErr: ', { movieError });
       return notifyError('Movie adding failed!');
     }
     setIsSubmitting(false);

@@ -16,10 +16,22 @@ const getHeaders = (isSecured) => {
   return headers;
 };
 
-export const POST = (url, data, configParams = {}, isSecured = false) => {
+export const POST = (
+  url,
+  data,
+  configParams = {},
+  isSecured = false,
+  isMultipart
+) => {
+  const tempHeaders = getHeaders(isSecured);
+
+  if (isMultipart) {
+    tempHeaders['Content-Type'] = 'multipart/form-data';
+  }
+
   return http.post(url, data, {
     configParams,
-    headers: getHeaders(isSecured),
+    headers: { ...tempHeaders },
   });
 };
 
