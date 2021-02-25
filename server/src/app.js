@@ -23,6 +23,7 @@ cloudinary.config({
 });
 
 const buildPath = path.join(__dirname, '..', '..', 'build');
+console.log('path: ', buildPath);
 app.use('/', express.static(buildPath));
 
 app.use('/api', apiRoute);

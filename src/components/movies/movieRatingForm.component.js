@@ -73,7 +73,7 @@ export const MovieRatingForm = ({ movieId }) => {
       PUT(`/rate/${movieId}`, reviewData, {}, true)
     );
     if (reviewErr) {
-      // console.log('err: ', { reviewErr });
+      console.log('err: ', { reviewErr });
       setIsSubmitting(false);
       // TODO:: Show appropriate error if user is not logged in
       return setFormErr({ submitErr: 'Failed to submit review!' });

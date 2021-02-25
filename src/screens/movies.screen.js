@@ -48,6 +48,7 @@ export const MoviesScreen = () => {
       GET(`/search/movies?page=${page}&limit=${limit}`, {}, false)
     );
     if (moviesErr) {
+      console.log('err: ', moviesErr);
       return notifyError('Movies could not be fetched!');
     }
     notifySuccess('Movies fetched successfully.');

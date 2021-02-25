@@ -117,6 +117,7 @@ export const MovieScreen = ({ match }) => {
         GET(`/search/movies?id=${movieId}`, {}, false)
       );
       if (moviesErr) {
+        console.log('movieErr: ', moviesErr);
         return notifyError('Movie could not be fetched!');
       }
       notifySuccess('Movie fetched successfully.');

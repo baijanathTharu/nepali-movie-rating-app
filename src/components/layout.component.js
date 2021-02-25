@@ -6,6 +6,7 @@ import { Footer } from './ui';
 import { Header } from './ui';
 import { SideDrawer } from './ui';
 import { BackDrop } from './ui';
+import { VerifyEmail } from './verifyEmail';
 
 const ChildrenDiv = styled.div`
   min-height: 93vh;
@@ -56,6 +57,7 @@ export const Layout = ({ children }) => {
         toggleDrawer={setDrawer}
         drawer={drawer}
       />
+      <VerifyEmail />
       <ChildrenDiv>{children}</ChildrenDiv>
       <Footer />
       <ToastContainer
