@@ -8,7 +8,8 @@ const ENV = process.env.ENVIRONMENT;
 const buildPath = path.join(__dirname, '..', '..', '..', 'build');
 
 module.exports = function (req, res, next) {
-  console.log('req: ', req.file);
+  if (!req.file) return next();
+
   if (ENV === 'production') {
     cloudinary.v2.uploader.upload(
       path.join(buildPath, '/', req.file.filename),

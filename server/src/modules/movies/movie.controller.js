@@ -69,13 +69,13 @@ function update(req, res, next) {
   // if image is uploaded
   if (req.file) {
     data.images = [req.file.filename];
+
+    // get image url from cloudinary
+    if (!req.movie_image_url)
+      return next({ message: 'Image not uploaded!', status: 402 });
+
+    data.imageUrl = req.movie_image_url;
   }
-
-  // get image url from cloudinary
-  if (!req.movie_image_url)
-    return next({ message: 'Image not uploaded!', status: 402 });
-
-  data.imageUrl = req.movie_image_url;
 
   MovieQuery.update(req.params.id, data)
     .then(function (data) {

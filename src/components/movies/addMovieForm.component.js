@@ -56,7 +56,7 @@ const FormItems = [
   },
 ];
 
-export const MovieForm = ({ formTitle, movieId, closeForm }) => {
+export const MovieForm = ({ formTitle, movieId, closeForm, fetchMovies }) => {
   const [formState, setFormState] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -104,6 +104,7 @@ export const MovieForm = ({ formTitle, movieId, closeForm }) => {
     }
     setIsSubmitting(false);
     // TODO:: show added movie
+    fetchMovies();
     clearForm();
     closeForm();
     return notifySuccess('movie added successfully!');

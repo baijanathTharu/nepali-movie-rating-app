@@ -23,7 +23,7 @@ const SideDiv = styled.div`
   background-color: rgba(0, 0, 0, 0.95);
   position: fixed;
   left: 0;
-  color: wheat;
+  color: #f5deb3;
   padding: 20px;
 `;
 
@@ -246,7 +246,7 @@ export const DashboardScreen = () => {
         width='70vw'
         height='80vh'
       >
-        <MovieForm formTitle='Add a movie' />
+        <MovieForm formTitle='Add a movie' fetchMovies={fetchMovies} />
       </PopUp>
       <PopUp
         isHidden={deleteMoviePopUp.isHidden}

@@ -125,7 +125,7 @@ export const EditMovieForm = ({ formTitle, movieId, closeForm }) => {
     }
 
     const [editMovieError, editMovieRes] = await handleError(
-      PUT(`/movies/${movieId}`, data, {}, true)
+      PUT(`/movies/${movieId}`, data, {}, true, true)
     );
     if (editMovieError) {
       setIsSubmitting(false);

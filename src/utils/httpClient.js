@@ -21,7 +21,7 @@ export const POST = (
   data,
   configParams = {},
   isSecured = false,
-  isMultipart
+  isMultipart = false
 ) => {
   const tempHeaders = getHeaders(isSecured);
 
