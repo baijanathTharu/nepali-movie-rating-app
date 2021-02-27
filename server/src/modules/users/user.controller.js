@@ -59,8 +59,6 @@ function create(req, res, next) {
               `https://nepali-movie-rating.herokuapp.com/api/verify-email/${data._id}/${doc.code}`
             )
               .then(function (mailInfo) {
-                console.log('data: ', mailInfo);
-
                 const sanitizedData = sanitizeData(data, 'password');
                 res.json(sanitizedData);
               })
@@ -68,6 +66,7 @@ function create(req, res, next) {
                 if (e.name === 'MongoError') {
                   return next({ message: e.keyValue, status: 403 });
                 }
+                if (e === 'Sending mail failed!') return res.redirect('/');
                 next(e);
               });
           })
