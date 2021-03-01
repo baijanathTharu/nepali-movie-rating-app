@@ -51,7 +51,7 @@ export const RegisterForm = () => {
       sessionStorage.setItem('role', res.data.role || '1');
       notifySuccess('registration success');
       userContext.setUserState(res.data);
-      history.push('/');
+      return history.push('/movies');
     }
     if (regError) {
       // console.log('reg error: ', { regError });
