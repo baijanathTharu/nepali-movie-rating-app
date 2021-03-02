@@ -9,6 +9,8 @@ import { notifyError, notifySuccess } from '../utils/notifyError';
 import { MovieCard } from '../components/movies/movieCard.component';
 import { Loader } from '../components/ui/loader.component';
 import { Pagination } from '../components/ui/pagination.component';
+import { MoviesByTitle } from '../components/movies/moviesByTitle.component';
+import { Carousel } from '../components/ui/carousel/carousel.component';
 
 const Div = styled.div`
   display: flex;
@@ -28,9 +30,20 @@ const H2 = styled.h2`
 const MovieContainer = styled.div`
   display: grid;
   grid-gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   padding: 20px;
   background-color: ${(props) => props.bgColor};
+`;
+
+const CarouselImage = styled.div`
+  width: 100%;
+  flex-shrink: 0;
+  flex-grow: 1;
+  background-image: url(${(props) => props.backgroundImage});
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: 70vh;
+  background-size: cover;
 `;
 
 export const MoviesScreen = () => {
@@ -81,8 +94,24 @@ export const MoviesScreen = () => {
       );
     });
 
+  const carouselMovieImagesList =
+    moviesData.data &&
+    moviesData.data.map((movie, idx) => {
+      const imageSrc = movie.imageUrl
+        ? movie.imageUrl
+        : `https://hesolutions.com.pk/wp-content/uploads/2019/01/picture-not-available.jpg`;
+      return <CarouselImage key={idx} backgroundImage={imageSrc} />;
+    });
+
+  const ShowCarousel = moviesData.data ? (
+    <Carousel>{carouselMovieImagesList}</Carousel>
+  ) : (
+    'Loading'
+  );
+
   return (
     <Layout>
+      {ShowCarousel}
       <MovieContainer bgColor='wheat'>
         <Loader
           isHidden={hasFetched}
@@ -99,6 +128,9 @@ export const MoviesScreen = () => {
         totalPage={pageDetails.totalPage}
         fetchPage={fetchMovies}
       />
+      <MoviesByTitle genre='crime' title='Crime' />
+      <MoviesByTitle genre='thriller' title='Thriller' />
+      <MoviesByTitle genre='nogenre' title='No Genre' />
     </Layout>
   );
 };

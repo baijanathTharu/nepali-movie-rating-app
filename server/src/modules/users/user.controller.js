@@ -66,6 +66,7 @@ function create(req, res, next) {
                 if (e.name === 'MongoError') {
                   return next({ message: e.keyValue, status: 403 });
                 }
+                console.log('failed');
                 if (e === 'Sending mail failed!') return res.redirect('/');
                 next(e);
               });

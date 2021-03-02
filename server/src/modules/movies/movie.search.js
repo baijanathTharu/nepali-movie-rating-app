@@ -1,10 +1,14 @@
 const searchQuery = require('./movie.query').searchQuery;
 
 module.exports = function (req, res, next) {
-  const { name, id, page = 1, limit = 5 } = req.query;
+  const { name, id, genre, page = 1, limit = 5 } = req.query;
   let condition = {};
   if (name) {
     condition.title = name;
+  }
+
+  if (genre) {
+    condition.genre = genre;
   }
 
   if (id) {
